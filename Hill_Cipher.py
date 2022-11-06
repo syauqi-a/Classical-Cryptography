@@ -1,9 +1,9 @@
 import numpy as np
 import re
 
-class Hill_Chiper:
-    def __init__(self, key:str):
-        self.key = self.generateKeyArray(key.upper())
+class Hill_Cipher:
+    def __init__(self, key:str|None = None):
+        self.key = self.generateKeyArray(key.upper()) if key else None
     
     def generateKeyArray(self, key:str):
         key = re.sub(r"[^A-Z]", "", key.upper())
@@ -82,7 +82,7 @@ def debug():
     plain_text = "kriptografi itu mudah"
     print("Plain text:", plain_text)
 
-    hc = Hill_Chiper(key)
+    hc = Hill_Cipher(key)
     cipher = hc.encrypt(plain_text)
     print("Cipher text:", cipher)
 

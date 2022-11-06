@@ -1,9 +1,9 @@
 import numpy as np
 import re
 
-class Vigenere_Chiper:
-    def __init__(self, key:str):
-        self.key = self.generateOrdArray(key.upper())
+class Vigenere_Cipher:
+    def __init__(self, key:str|None = None):
+        self.key = self.generateOrdArray(key.upper()) if key else None
     
     def generateOrdArray(self, text:str):
         text = re.sub(r"[^A-Z]", "", text.upper())
@@ -30,7 +30,7 @@ def debug():
     plain_text = "attack at dawn"
     print("Plain text:", plain_text)
 
-    hc = Vigenere_Chiper(key)
+    hc = Vigenere_Cipher(key)
     cipher = hc.encrypt(plain_text)
     print("Cipher text:", cipher)
 

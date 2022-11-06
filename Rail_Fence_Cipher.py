@@ -2,8 +2,8 @@ import numpy as np
 import re
 
 class Rail_Fence_Cipher:
-    def __init__(self, key:int):
-        self.key = key
+    def __init__(self, key:int|None = None):
+        self.key = key if key else None
     
     def generateOrdArray(self, text:str):
         text = re.sub(r"[^A-Z]", "", text.upper())
