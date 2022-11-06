@@ -32,7 +32,7 @@ class Rail_Fence_Cipher:
         cipher = "".join([chr(c + 65) for c in rail.flatten() if c!=None])
         return cipher
 
-    def decrypt(self, text:str, key:str|None = None):
+    def decrypt(self, text:str, key:int|None = None):
         key = key if key else self.key
         # Marking the field
         mark = self.fillingField(np.array([True for _ in range(len(text))]), key)
