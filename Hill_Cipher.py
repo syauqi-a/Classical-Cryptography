@@ -39,6 +39,9 @@ class Hill_Cipher:
         while r != 1:
             i += 1
             r = (i*numb) % p  # get reminder
+            if i > 26:
+                raise Exception("Can not find inverse of determinant of key" +
+                          f"{numb} mod {26}")
         return i
 
     def encrypt(self, text:str, key:str|None = None):
