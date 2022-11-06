@@ -15,9 +15,9 @@ class Hill_Cipher:
 
     def findDeterminant(self, key_arr):
         k = np.copy(key_arr)
-        col1 = k[0][0]*((k[1][1]*k[2][2]) - (k[2][1]*k[1][2]))
-        col2 = k[0][1]*((k[1][0]*k[2][2]) - (k[2][0]*k[1][2]))
-        col3 = k[0][2]*((k[1][0]*k[2][1]) - (k[2][0]*k[1][1]))
+        col1 = k[0, 0]*((k[1, 1]*k[2, 2]) - (k[2, 1]*k[1, 2]))
+        col2 = k[0, 1]*((k[1, 0]*k[2, 2]) - (k[2, 0]*k[1, 2]))
+        col3 = k[0, 2]*((k[1, 0]*k[2, 1]) - (k[2, 0]*k[1, 1]))
         return col1 - col2 + col3
 
     def findAdjoint(self, key_arr):
@@ -28,9 +28,9 @@ class Hill_Cipher:
                 x = (j+1)%3
                 y = (i+1)%3
 
-                a = k[x][y] * k[(x+1)%3][(y+1)%3]
-                b = k[(x+1)%3][y] * k[x][(y+1)%3]
-                adj_key[i][j] = (a - b) % 26
+                a = k[x, y] * k[(x+1)%3, (y+1)%3]
+                b = k[(x+1)%3, y] * k[x, (y+1)%3]
+                adj_key[i, j] = (a - b) % 26
         return adj_key
 
     def findInvMod(self, numb, p):
@@ -58,7 +58,11 @@ class Hill_Cipher:
         temp_cipher = np.array([], dtype=int)
         key = self.generateKeyArray(key) if key else self.key
         for row in arr_text:
-            temp_cipher = np.append(temp_cipher, row @ key)
+            dot = np.zeros((1, 3), dtype=int)
+            for i in range(dot.shape[0]):
+                for j in range(dot.shape[1]):
+                    dot[i, j] = sum([row[k]*key[k, j] for k in range(3)])
+            temp_cipher = np.append(temp_cipher, dot)
 
         # Convert integer into alphabetic and merge them as single string
         cipher = "".join([chr(c + 65) for c in (temp_cipher % 26)])
